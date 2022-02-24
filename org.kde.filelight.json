@@ -1,0 +1,43 @@
+{
+    "id": "org.kde.filelight",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "5.15-21.08",
+    "sdk": "org.kde.Sdk",
+    "command": "filelight",
+    "rename-icon": "filelight",
+    "finish-args": [
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--device=dri",
+        "--nofilesystem=host",
+        "--filesystem=home"
+    ],
+    "cleanup": [
+        "/include",
+        "/lib/pkgconfig",
+        "/lib/*.a",
+        "/lib/*.la",
+        "/share/man"
+     ],
+    "modules": [
+        {
+            "name": "filelight",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/21.12.3/src/filelight-21.12.3.tar.xz",
+                    "sha256": "28fc076caf94217f732b7228e0c77dc40b5d490bcbb3df7866c2e772130578f0"
+                },
+                {
+                    "type": "patch",
+                    "path": "filter-out-sandbox-mounts.patch"
+                }
+            ]
+        }
+    ]
+}
