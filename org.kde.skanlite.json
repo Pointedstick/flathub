@@ -1,0 +1,74 @@
+{
+    "id": "org.kde.skanlite",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "5.15-21.08",
+    "sdk": "org.kde.Sdk",
+    "command": "skanlite",
+    "finish-args": [
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--device=all"
+    ],
+    "separate-locales": false,
+    "cleanup": [
+        "/include",
+        "/lib/pkgconfig",
+        "/lib/*.a",
+        "/lib/*.la",
+        "/share/man"
+    ],
+    "modules": [
+        {
+            "name": "libusb1",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/libusb/libusb/releases/download/v1.0.25/libusb-1.0.25.tar.bz2",
+                    "sha256": "8a28ef197a797ebac2702f095e81975e2b02b2eeff2774fa909c78a74ef50849"
+                }
+            ]
+        },
+        {
+            "name": "sane",
+            "buildsystem": "autotools",
+            "config-opts": [
+                "--with-usb",
+                "--with-v4l",
+                "--with-gphoto2",
+                "--enable-pthread",
+                "--enable-pnm-backend",
+                "--enable-pthread"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.com/sane-project/backends",
+                    "tag": "1.1.1"
+                }
+            ]
+        },
+        {
+            "name": "libksane",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://invent.kde.org/kde/libksane.git"
+                }
+            ]
+        },
+        {
+            "name": "skanlite",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/21.12.2/src/skanlite-21.12.2.tar.xz",
+                    "sha256": "15c181b3d155a7222279b52ca7dd83aed2fa02b2edda1cd3c211e8bbfdcf6dbb"
+                }
+            ]
+        }
+    ]
+}
